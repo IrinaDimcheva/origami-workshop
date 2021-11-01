@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/header';
 import Aside from './components/aside';
-import Origamis from './origamis';
+import Origamis from './components/origamis';
 import styles from './app.module.css';
 import Footer from './components/footer';
 
@@ -16,6 +16,6 @@ const App = () => {
       <Footer />
     </div>
   );
-} 
+}
 
 export default App;

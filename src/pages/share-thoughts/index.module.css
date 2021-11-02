@@ -1,0 +1,16 @@
+.container {
+  text-align: center;
+}
+
+.textarea {
+  width: 40%;
+  height: 10vh;
+  resize: none;
+  display: block;
+  margin: 0 auto;
+  padding: 2%;
+  font-style: italic;
+  border-radius: 6px;
+  border: 1px solid #234465;
+  color: #234465;
+}

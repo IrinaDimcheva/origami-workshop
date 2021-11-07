@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const SubmitButton = ({ title }) => {
   return (
-    <Button>{title}</Button>
+    <Button type="submit">{title}</Button>
   );
 };
 

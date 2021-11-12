@@ -9,8 +9,8 @@ class Header extends Component {
   static contextType = UserContext;
 
   render() {
-    const { loggedIn, user } = this.context;
-    const links = getNavigation(loggedIn, user);
+    const { user } = this.context;
+    const links = getNavigation(user);
 
     return (
       <header className={styles.navigation}>

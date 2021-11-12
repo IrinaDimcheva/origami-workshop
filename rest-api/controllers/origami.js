@@ -4,8 +4,8 @@ module.exports = {
 	get: (req, res, next) => {
 		const length = req.query.length ? parseInt(req.query.length) : 20;
 		models.Origami.find()
-			// .sort({ _id: -1 })
-			// .sort({ createdAt: -1 })
+			.sort('-created_at')
+			// .sort({ created_at: -1 })
 			.limit(length).populate('author')
 			.then((origamis) => res.send(origamis))
 			.catch(next);

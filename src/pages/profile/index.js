@@ -1,61 +1,56 @@
-import React, { Component } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import Origamis from '../../components/origamis';
 import PageLayout from '../../components/page-layout';
 import Title from '../../components/title';
+import UserContext from '../../Context';
 
-class ProfilePage extends Component {
-  constructor(props) {
-    super(props);
+const ProfilePage = () => {
+  const [username, setUsername] = useState(null);
+  const [posts, setPosts] = useState(null);
+  const context = useContext(UserContext);
+  const history = useHistory();
+  const params = useParams();
 
-    this.state = {
-      username: null,
-      posts: null,
-      error: false
-    };
-  }
-
-  componentDidMount() {
-    // console.log(this.props.match.params);
-    this.getUser(this.props.match.params.userid);
-  }
-
-  getUser = async (id) => {
+  const getData = useCallback(async () => {
+    const id = params.userid;
     const response = await fetch(`http://localhost:9999/api/user?id=${id}`);
-    // console.log(response);
     if (!response.ok) {
-      this.props.history.push('/error');
+      history.push('/error');
     }
-
     const user = await response.json();
-    // console.log(user);
+    setUsername(user.username);
+    setPosts(user.posts && user.posts.length);
+  }, [params.userid, history]);
 
-    this.setState({
-      username: user.username,
-      posts: user.posts && user.posts.length
-    });
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const logOut = () => {
+    context.logOut();
+    history.push('/');
   }
 
-  render() {
-    const { username, posts } = this.state;
-    if (!username) {
-      return (
-        <PageLayout>
-          <div>Loading...</div>
-        </PageLayout>
-      );
-    }
-
+  if (!username) {
     return (
       <PageLayout>
-        <div>
-          <Title title="Profile Page" />
-          <p>User: {username}</p>
-          <p>Posts: {posts}</p>
-        </div>
-        <Origamis length={3} />
+        <div>Loading...</div>
       </PageLayout>
     );
   }
-};
+
+  return (
+    <PageLayout>
+      <div>
+        <Title title="Profile Page" />
+        <p>User: {username}</p>
+        <p>Posts: {posts}</p>
+        <button onClick={logOut}>Logout</button>
+      </div>
+      <Origamis length={3} />
+    </PageLayout>
+  );
+}
 
 export default ProfilePage;

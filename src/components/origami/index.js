@@ -9,6 +9,7 @@ const Origami = ({ description, author, index }) => {
       <p className={styles.description}>
         <span>{index} -</span>
         {description}
+        {/* <div dangerouslySetInnerHTML={{ __html: description }} /> */}
       </p>
       <div>
         <span className={styles.user}>

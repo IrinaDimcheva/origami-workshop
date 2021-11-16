@@ -18,7 +18,11 @@ class Header extends Component {
         {
           links.map(navElement => {
             return (
-              <Link key={navElement.title} href={navElement.link} title={navElement.title} type="header" />
+              <Link
+                key={navElement.title}
+                href={navElement.link}
+                title={navElement.title}
+                type="header" />
             );
           })
         }
